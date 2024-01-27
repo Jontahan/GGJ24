@@ -4,7 +4,7 @@ public class PlayerBehavior : MonoBehaviour
 {
     public float maxYawAngle = 90.0f;
     public float maxPitchAngle = 90.0f;
-    float mouseSensitivity = 1000.0f;
+    public float mouseSensitivity = 1000.0f;
 
     private float pitch = 0.0f;
     private float yaw = 0.0f;

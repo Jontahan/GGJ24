@@ -1438,8 +1438,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bca024435e6e2f45b6cebdee7ff9fa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxYawAngle: 90
-  maxPitchAngle: 90
+  maxYawAngle: 110
+  maxPitchAngle: 70
+  mouseSensitivity: 500
 --- !u!114 &3140472216966786785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1452,8 +1453,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f94824d4f5c34d94cb01fab2a3d86e54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: 1500000
-  steering: 300
+  acceleration: 1200000
+  steering: 140
   brakeForce: 3000
   wheelFL: {fileID: 3800603651603945049}
   wheelFR: {fileID: 4999045898968279262}

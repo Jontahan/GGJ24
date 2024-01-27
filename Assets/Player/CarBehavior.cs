@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class CarBehavior : MonoBehaviour
@@ -44,10 +45,23 @@ public class CarBehavior : MonoBehaviour
             rb.AddForce(-transform.forward * acceleration * 0.5f * Time.fixedDeltaTime);
         }
 
+
         ApplyBraking();
 
         float turn = Input.GetAxis("Horizontal");
+
         currentSteerAngle = steering * turn;
+
+        
+        currentSteerAngle *= Mathf.Clamp(currentSpeed / 7f, 0, 1);
+
+        var localVel = transform.InverseTransformDirection(rb.velocity);
+        
+        if (localVel.z < 0)
+        {
+            currentSteerAngle *= -1f;
+        }
+
         transform.Rotate(0, currentSteerAngle * Time.fixedDeltaTime, 0);
     }
     void Update() 
