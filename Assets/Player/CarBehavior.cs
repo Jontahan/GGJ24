@@ -34,6 +34,9 @@ public class CarBehavior : MonoBehaviour
     public Transform wheelBRTrans;
     public Transform steeringWheel;
     
+    public bool isNPC = false;
+    public GameObject targetObject;
+
     void Awake()
     {
         inputActions = new GameControls();
@@ -55,24 +58,48 @@ public class CarBehavior : MonoBehaviour
     {
         inputActions.Car.Disable();
     }
+    private float GetSteeringSignal()
+    {
+        if (isNPC) 
+        {   
+            return Vector3.Cross(transform.forward, (targetObject.transform.position - transform.position).normalized).y > 0 ? 1 : -1;
+        }
+        else
+        {
+            return inputActions.Car.Steering.ReadValue<float>();
+        }
+    }
+
+    private float GetAccelerationSignal()
+    {
+        if (isNPC) 
+        {
+            return 1;
+        }
+        else
+        {
+            return inputActions.Car.Acceleration.ReadValue<float>();
+        }
+    }
 
     void FixedUpdate()
     {
         UpdateGearing();
         currentSpeed = rb.velocity.magnitude;
-        Debug.Log(currentSpeed + " --- " + currentGear);
+        //Debug.Log(currentSpeed + " --- " + currentGear);
 
         isBraking = inputActions.Car.Braking.ReadValue<float>() > 0.5f; // more than 50% pressed on gamepad (i think)
         currentBrakeForce = isBraking ? brakeForce : 0f;
 
-        float accelerationInput = inputActions.Car.Acceleration.ReadValue<float>();
+        float accelerationInput = GetAccelerationSignal();
 
         rb.AddForce(transform.forward * accelerationInput * currentAcceleration * Time.fixedDeltaTime);
 
 
         ApplyBraking();
 
-        float steeringInput = inputActions.Car.Steering.ReadValue<float>();
+        float steeringInput = GetSteeringSignal();
+        print(isNPC + " " +steeringInput);
         targetSteerAngle = steering * steeringInput;
         
         currentSteerAngle = Mathf.Lerp(currentSteerAngle, targetSteerAngle, Time.deltaTime * 2);
