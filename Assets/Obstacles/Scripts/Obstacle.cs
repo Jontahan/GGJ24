@@ -18,6 +18,6 @@ public class Obstacle : MonoBehaviour
         if(!other.gameObject.CompareTag("Player")) return;
         
         // Damage increased the faster the player is going into the obstacle
-        gameManager.OnPlayerDamaged(damage + other.relativeVelocity.magnitude);
+        gameManager.OnPlayerDamaged(damage + other.relativeVelocity.magnitude * 0.25f);
     }
 }

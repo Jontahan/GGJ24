@@ -60,7 +60,7 @@ public class CarBehavior : MonoBehaviour
     {
         UpdateGearing();
         currentSpeed = rb.velocity.magnitude;
-        Debug.Log(currentSpeed + " --- " + currentGear);
+        // Debug.Log(currentSpeed + " --- " + currentGear);
 
         isBraking = inputActions.Car.Braking.ReadValue<float>() > 0.5f; // more than 50% pressed on gamepad (i think)
         currentBrakeForce = isBraking ? brakeForce : 0f;
