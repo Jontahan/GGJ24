@@ -12,7 +12,7 @@ public class PlayerBehavior : MonoBehaviour
     private float yaw = 0.0f;
 
     private int drunkLevel = 0;
-    private float[] drunkLevelSmoothing = { 14.0f, 7.0f, 3.7f, 0.7f };
+    private float[] drunkLevelSmoothing = { 14.0f, 10.0f, 7.0f, 3.7f };
     public TextMeshProUGUI drunkLevelText;
 
     private GameControls inputActions;
@@ -63,6 +63,12 @@ public class PlayerBehavior : MonoBehaviour
         yaw = Mathf.Clamp(yaw, -maxYawAngle, maxYawAngle);
 
         Camera.main.transform.localRotation = Quaternion.Euler(pitch, yaw, 0);
+
+        // Apply camera drunk bobbing using sinus
+        float bobbing_roll = Mathf.Sin(Time.time * 2.0f) * 3f * drunkLevel;
+        float bobbing_pitch = Mathf.Sin(Time.time * 3.0f) * 3f * drunkLevel;
+        float bobbing_yaw = Mathf.Sin(Time.time * 4.0f) * 3f * drunkLevel;
+        Camera.main.transform.localRotation *= Quaternion.Euler(bobbing_pitch, bobbing_roll, bobbing_yaw);
 
 
         // DEBUG ONLY: Increase and decrease drunk level
