@@ -2104,7 +2104,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f94824d4f5c34d94cb01fab2a3d86e54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: 300000
+  gearForces:
+  - 300000
+  - 500000
+  - 700000
+  gearingThresholds:
+  - 17
+  - 25
+  - 30
+  autoGearTime: 3
   steering: 140
   brakeForce: 3000
   wheelFL: {fileID: 3800603651603945049}
