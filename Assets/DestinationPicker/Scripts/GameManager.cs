@@ -4,6 +4,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public event Action PlayerWon;
+    public event Action PlayerLost;
     public event Action<float> PlayerDamaged;
     
     public void OnPlayerReachedDestination()
@@ -15,5 +16,11 @@ public class GameManager : MonoBehaviour
     public void OnPlayerDamaged(float damage)
     {
         PlayerDamaged?.Invoke(damage);
+    }
+    
+    public void OnPlayerLost()
+    {
+        PlayerLost?.Invoke();
+        Debug.LogError("Player lost");
     }
 }
