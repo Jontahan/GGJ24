@@ -24,6 +24,8 @@ public class CarBehavior : MonoBehaviour
     public Transform wheelBLTrans;
     public Transform wheelBRTrans;
 
+    public Transform steeringWheel;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -49,12 +51,13 @@ public class CarBehavior : MonoBehaviour
         ApplyBraking();
 
         float turn = Input.GetAxis("Horizontal");
-
-        currentSteerAngle = steering * turn;
-
         
-        currentSteerAngle *= Mathf.Clamp(currentSpeed / 7f, 0, 1);
+        currentSteerAngle = steering * turn;
+        //Debug.Log(currentSteerAngle);
+        //steeringWheel.Rotate (0, currentSteerAngle * Time.deltaTime, 0);
 
+        currentSteerAngle *= Mathf.Clamp(currentSpeed / 7f, 0, 1);
+        steeringWheel.Rotate(0, currentSteerAngle * Time.deltaTime, 0);
         var localVel = transform.InverseTransformDirection(rb.velocity);
         
         if (localVel.z < 0)
@@ -62,6 +65,9 @@ public class CarBehavior : MonoBehaviour
             currentSteerAngle *= -1f;
         }
 
+        //var rot = steeringWheel.localEulerAngles;
+        //steeringWheel.localEulerAngles = new Vector3(turn, rot.y, rot.z);
+        
         transform.Rotate(0, currentSteerAngle * Time.fixedDeltaTime, 0);
     }
     void Update() 
