@@ -14,6 +14,7 @@ public class CarBehavior : MonoBehaviour
     // Internal engine variables
     private float currentBrakeForce = 0f;
     private float currentSteerAngle = 0f;
+    private float targetSteerAngle = 0f;
     public float currentSpeed;
     private bool isBraking;
     private Rigidbody rb;
@@ -23,7 +24,6 @@ public class CarBehavior : MonoBehaviour
 
     private GameControls inputActions;
 
-
     public WheelCollider wheelFL;
     public WheelCollider wheelFR;
     public WheelCollider wheelBL;
@@ -32,12 +32,13 @@ public class CarBehavior : MonoBehaviour
     public Transform wheelFRTrans;
     public Transform wheelBLTrans;
     public Transform wheelBRTrans;
-
+    public Transform steeringWheel;
+    
     void Awake()
     {
         inputActions = new GameControls();
     }
-    public Transform steeringWheel;
+    
 
     void Start()
     {
@@ -66,19 +67,19 @@ public class CarBehavior : MonoBehaviour
 
         float accelerationInput = inputActions.Car.Acceleration.ReadValue<float>();
 
-        // Removed logic for checking for braking, reapply if needed
         rb.AddForce(transform.forward * accelerationInput * currentAcceleration * Time.fixedDeltaTime);
 
 
         ApplyBraking();
 
         float steeringInput = inputActions.Car.Steering.ReadValue<float>();
-        currentSteerAngle = steering * steeringInput;
-        Debug.Log(currentSteerAngle);
-        //steeringWheel.Rotate (0, currentSteerAngle * Time.deltaTime, 0);
-
+        targetSteerAngle = steering * steeringInput;
+        
+        currentSteerAngle = Mathf.Lerp(currentSteerAngle, targetSteerAngle, Time.deltaTime * 2);
         currentSteerAngle *= Mathf.Clamp(currentSpeed / 7f, 0, 1);
-        steeringWheel.Rotate(0, currentSteerAngle * Time.deltaTime, 0);
+        
+        steeringWheel.Rotate(0, targetSteerAngle * Time.deltaTime, 0);
+
         var localVel = transform.InverseTransformDirection(rb.velocity);
 
         if (localVel.z < 0)
@@ -86,11 +87,9 @@ public class CarBehavior : MonoBehaviour
             currentSteerAngle *= -1f;
         }
 
-        //var rot = steeringWheel.localEulerAngles;
-        //steeringWheel.localEulerAngles = new Vector3(turn, rot.y, rot.z);
-
         transform.Rotate(0, currentSteerAngle * Time.fixedDeltaTime, 0);
     }
+
     void Update()
     {
         wheelFLTrans.Rotate(0, wheelFL.rpm / 60 * 360 * Time.deltaTime, 0);
@@ -98,6 +97,7 @@ public class CarBehavior : MonoBehaviour
         wheelBLTrans.Rotate(0, wheelBL.rpm / 60 * 360 * Time.deltaTime, 0);
         wheelBRTrans.Rotate(0, wheelBR.rpm / 60 * 360 * Time.deltaTime, 0);
     }
+
     private void UpdateGearing()
     {
         currentSpeed = rb.velocity.magnitude;
