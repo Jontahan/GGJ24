@@ -5,6 +5,8 @@ using UnityEngine.Assertions;
 public class Destination : MonoBehaviour
 {
     [SerializeField] private GameObject visualTransform;
+    [SerializeField] private LineRenderer laserbeam;
+    [SerializeField] private float laserbeamHeight;
     
     private Rigidbody rb;
     private GameManager gameManager;
@@ -16,6 +18,10 @@ public class Destination : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         Assert.IsNotNull(gameManager, "GameManager is null");
 
+        laserbeam.SetPosition(0, transform.position);
+        laserbeam.SetPosition(1, new Vector3(transform.position.x, transform.position.y + laserbeamHeight, 
+            transform.position.z));
+        
         isPicked = true;
         visualTransform.SetActive(true);
     }
