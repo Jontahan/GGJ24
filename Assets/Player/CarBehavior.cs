@@ -31,6 +31,7 @@ public class CarBehavior : MonoBehaviour
     {
         inputActions = new GameControls();
     }
+    public Transform steeringWheel;
 
     void Start()
     {
@@ -59,10 +60,26 @@ public class CarBehavior : MonoBehaviour
         // Removed logic for checking for braking, reapply if needed
         rb.AddForce(transform.forward * accelerationInput * acceleration * Time.fixedDeltaTime);
 
+
         ApplyBraking();
 
         float steeringInput = inputActions.Car.Steering.ReadValue<float>();
         currentSteerAngle = steering * steeringInput;
+        Debug.Log(currentSteerAngle);
+        //steeringWheel.Rotate (0, currentSteerAngle * Time.deltaTime, 0);
+
+        currentSteerAngle *= Mathf.Clamp(currentSpeed / 7f, 0, 1);
+        steeringWheel.Rotate(0, currentSteerAngle * Time.deltaTime, 0);
+        var localVel = transform.InverseTransformDirection(rb.velocity);
+
+        if (localVel.z < 0)
+        {
+            currentSteerAngle *= -1f;
+        }
+
+        //var rot = steeringWheel.localEulerAngles;
+        //steeringWheel.localEulerAngles = new Vector3(turn, rot.y, rot.z);
+
         transform.Rotate(0, currentSteerAngle * Time.fixedDeltaTime, 0);
     }
     void Update()
