@@ -88,11 +88,6 @@ public class CarBehavior : MonoBehaviour
         wheelFRTrans.Rotate(0, wheelFR.rpm / 60 * 360 * Time.deltaTime, 0);
         wheelBLTrans.Rotate(0, wheelBL.rpm / 60 * 360 * Time.deltaTime, 0);
         wheelBRTrans.Rotate(0, wheelBR.rpm / 60 * 360 * Time.deltaTime, 0);
-
-        // Log all outputs from input actions
-        Debug.Log(inputActions.Car.Acceleration.ReadValue<float>());
-        Debug.Log(inputActions.Car.Braking.ReadValue<float>());
-        Debug.Log(inputActions.Car.Steering.ReadValue<float>());
     }
     private void ApplyBraking()
     {

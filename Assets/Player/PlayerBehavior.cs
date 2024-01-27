@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class PlayerBehavior : MonoBehaviour
 {
@@ -8,6 +10,10 @@ public class PlayerBehavior : MonoBehaviour
 
     private float pitch = 0.0f;
     private float yaw = 0.0f;
+
+    private int drunkLevel = 0;
+    private float[] drunkLevelSmoothing = { 14.0f, 7.0f, 3.7f, 0.7f };
+    public TextMeshProUGUI drunkLevelText;
 
     private GameControls inputActions;
 
@@ -29,6 +35,7 @@ public class PlayerBehavior : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        drunkLevelText = GameObject.Find("DrunkLevelText").GetComponent<TextMeshProUGUI>();
     }
 
     private Vector2 smoothInput;
@@ -36,20 +43,17 @@ public class PlayerBehavior : MonoBehaviour
     private Vector2 GetSmoothedInput(Vector2 rawInput)
     {
         // Apply exponential moving average smoothing
-        // 0.7, 3.7, 7.0 
-        smoothInput = Vector2.Lerp(smoothInput, rawInput, 7f * Time.deltaTime);
+        // 0.7, 3.7, 7.0, 14.0 is normal?
+        smoothInput = Vector2.Lerp(smoothInput, rawInput, drunkLevelSmoothing[drunkLevel] * Time.deltaTime);
         return smoothInput;
     }
 
     void Update()
     {
         Vector2 rawInputHead = inputActions.Player.Head.ReadValue<Vector2>();
-        Vector2 rawInputHead2 = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
         Vector2 smoothInputHead = GetSmoothedInput(rawInputHead);
         float mouseX = smoothInputHead[0] * mouseSensitivity * Time.deltaTime;
         float mouseY = smoothInputHead[1] * mouseSensitivity * Time.deltaTime;
-        // float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        // float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
 
         pitch -= mouseY;
@@ -59,5 +63,20 @@ public class PlayerBehavior : MonoBehaviour
         yaw = Mathf.Clamp(yaw, -maxYawAngle, maxYawAngle);
 
         Camera.main.transform.localRotation = Quaternion.Euler(pitch, yaw, 0);
+
+
+        // DEBUG ONLY: Increase and decrease drunk level
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (drunkLevel < 3)
+                drunkLevel++;
+            drunkLevelText.text = "Level: " + drunkLevel.ToString();
+        }
+        else if (Input.GetMouseButtonDown(1))
+        {
+            if (drunkLevel > 0)
+                drunkLevel--;
+            drunkLevelText.text = "Level: " + drunkLevel.ToString();
+        }
     }
 }
