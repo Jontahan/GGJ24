@@ -53,7 +53,7 @@ public class CarBehavior : MonoBehaviour
         float turn = Input.GetAxis("Horizontal");
         
         currentSteerAngle = steering * turn;
-        Debug.Log(currentSteerAngle);
+        //Debug.Log(currentSteerAngle);
         //steeringWheel.Rotate (0, currentSteerAngle * Time.deltaTime, 0);
 
         currentSteerAngle *= Mathf.Clamp(currentSpeed / 7f, 0, 1);
