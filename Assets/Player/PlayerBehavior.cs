@@ -13,9 +13,8 @@ public class PlayerBehavior : MonoBehaviour
     private float pitch = 0.0f;
     private float yaw = 0.0f;
 
-    private int drunkLevel = 0;
-    private float[] drunkLevelSmoothing = { 14.0f, 10.0f, 7.0f, 3.7f };
-    public TextMeshProUGUI drunkLevelText;
+    private int funLevel = 0;
+    private float[] funLevelSmoothing = { 14.0f, 10.0f, 7.0f, 3.7f };
 
     private GameControls inputActions;
 
@@ -40,7 +39,7 @@ public class PlayerBehavior : MonoBehaviour
         // drunkLevelText = GameObject.Find("DrunkLevelText").GetComponent<TextMeshProUGUI>();
         
         if(funnyJuice != null)
-            funnyJuice.OnDrink += IncreaseDrunkLevel;
+            funnyJuice.OnDrink += IncreaseFunLevel;
     }
 
     private Vector2 smoothInput;
@@ -49,19 +48,19 @@ public class PlayerBehavior : MonoBehaviour
     {
         // Apply exponential moving average smoothing
         // 0.7, 3.7, 7.0, 14.0 is normal?
-        smoothInput = Vector2.Lerp(smoothInput, rawInput, drunkLevelSmoothing[drunkLevel] * Time.deltaTime);
+        smoothInput = Vector2.Lerp(smoothInput, rawInput, funLevelSmoothing[funLevel] * Time.deltaTime);
         return smoothInput;
     }
 
-    private void IncreaseDrunkLevel()
+    private void IncreaseFunLevel()
     {
-        if(drunkLevel < 3)
-            drunkLevel++;
+        if(funLevel < 3)
+            funLevel++;
     }
     
     void Update()
     {
-        Debug.Log(drunkLevel);
+        Debug.Log(funLevel);
         
         Vector2 rawInputHead = inputActions.Player.Head.ReadValue<Vector2>();
         Vector2 smoothInputHead = GetSmoothedInput(rawInputHead);
@@ -78,9 +77,9 @@ public class PlayerBehavior : MonoBehaviour
         Camera.main.transform.localRotation = Quaternion.Euler(pitch, yaw, 0);
 
         // Apply camera drunk bobbing using sinus
-        float bobbing_roll = Mathf.Sin(Time.time * 2.0f) * 3f * drunkLevel;
-        float bobbing_pitch = Mathf.Sin(Time.time * 3.0f) * 3f * drunkLevel;
-        float bobbing_yaw = Mathf.Sin(Time.time * 4.0f) * 3f * drunkLevel;
+        float bobbing_roll = Mathf.Sin(Time.time * 2.0f) * 3f * funLevel;
+        float bobbing_pitch = Mathf.Sin(Time.time * 3.0f) * 3f * funLevel;
+        float bobbing_yaw = Mathf.Sin(Time.time * 4.0f) * 3f * funLevel;
         Camera.main.transform.localRotation *= Quaternion.Euler(bobbing_pitch, bobbing_roll, bobbing_yaw);
 
     }
