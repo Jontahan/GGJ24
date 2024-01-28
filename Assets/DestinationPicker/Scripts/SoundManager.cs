@@ -52,6 +52,13 @@ public class CarSoundManager : MonoBehaviour
         engineStartupCoroutine = StartCoroutine(EngineStartup());
     }
 
+    void Start()
+    {
+        // Set up audio source volumes
+        carHonkAudioSource.volume = 0.6f;
+        carDriftAudioSource.volume = 0.6f;
+    }
+
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.tag == "Collidable")
