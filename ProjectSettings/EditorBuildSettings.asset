@@ -5,9 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: c92628e7212e77e41a84b2ad324a9aeb
   - enabled: 1
     path: Assets/FunnyDriving.unity
     guid: e3958e1b283bec1408fce846de49d1f2
