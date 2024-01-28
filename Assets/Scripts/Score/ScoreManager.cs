@@ -43,9 +43,16 @@ public class ScoreManager
         }
 
         float totalScoreModifier = 0;
-        foreach (var score in scoreModifiers)
+        if (scoreModifiers.Count > 0)
         {
-            totalScoreModifier += score.scoreValue;
+            foreach (var score in scoreModifiers)
+            {
+                totalScoreModifier += score.scoreValue;
+            } 
+        }
+        else
+        {
+            totalScoreModifier = 1;
         }
 
         return (int)Math.Round(baseScore + (totalScore * totalScoreModifier));
