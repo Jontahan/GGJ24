@@ -55,7 +55,7 @@ public class CarSoundManager : MonoBehaviour
     void Start()
     {
         // Set up audio source volumes
-        carHonkAudioSource.volume = 0.6f;
+        carHonkAudioSource.volume = 0.5f;
         carDriftAudioSource.volume = 0.6f;
     }
 
