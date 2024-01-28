@@ -1175,7 +1175,7 @@ GameObject:
   - component: {fileID: 420221617}
   - component: {fileID: 420221616}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3774,7 +3774,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4374518778012494012, guid: 7995ed3f5e417104dab676ea13f897ee, type: 3}
       propertyPath: m_TagString
-      value: Collidable
+      value: Police
       objectReference: {fileID: 0}
     - target: {fileID: 7316492692384058642, guid: 7995ed3f5e417104dab676ea13f897ee, type: 3}
       propertyPath: crashSounds.Array.size
@@ -5661,6 +5661,10 @@ PrefabInstance:
     - target: {fileID: 9168746216384423092, guid: 3c01ace2864b6924a9a67ec32ad12d70, type: 3}
       propertyPath: m_Name
       value: Civilian
+      objectReference: {fileID: 0}
+    - target: {fileID: 9168746216384423092, guid: 3c01ace2864b6924a9a67ec32ad12d70, type: 3}
+      propertyPath: m_TagString
+      value: MoveableCollidable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
