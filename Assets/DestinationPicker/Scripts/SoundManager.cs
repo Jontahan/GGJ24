@@ -39,7 +39,7 @@ public class CarSoundManager : MonoBehaviour
         inputActions.Car.Enable();
         wheelFL = transform.Find("Colliders/WheelFL").GetComponent<WheelCollider>();
         wheelFR = transform.Find("Colliders/WheelFR").GetComponent<WheelCollider>();
-        var carAudioSources = GameObject.FindGameObjectWithTag("Player").GetComponents<AudioSource>();
+        var carAudioSources = GameObject.Find("PlayerCar").GetComponents<AudioSource>();
         carEngineAudioSource = carAudioSources[0];
         carGearShiftAudioSource = carAudioSources[1];
         carDriftAudioSource = carAudioSources[2];
@@ -144,12 +144,12 @@ public class CarSoundManager : MonoBehaviour
     void Update()
     {
 
-        // If user presses the middle mouse button, do a honk
-        if (Input.GetButtonDown("Fire3"))
+        // If user presses , do a honk
+        if (Input.GetButtonDown("Fire2"))
         {
             carHonkAudioSource.PlayOneShot(carHonkStart);
         }
-        else if (Input.GetButton("Fire3"))
+        else if (Input.GetButton("Fire2"))
         {
             if (!carHonkAudioSource.isPlaying)
             {
@@ -158,7 +158,7 @@ public class CarSoundManager : MonoBehaviour
                 carHonkAudioSource.Play();
             }
         }
-        else if (Input.GetButtonUp("Fire3"))
+        else if (Input.GetButtonUp("Fire2"))
         {
             carHonkAudioSource.Stop();
         }
