@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: damage
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 1573240317869709911, guid: fafb7079ef2906748a6388f335c98a2e, type: 3}
+      propertyPath: crashSounds.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 626761847e19d42eb9b906e2f1257ee4, type: 3}
     - target: {fileID: 3637051877646292517, guid: fafb7079ef2906748a6388f335c98a2e, type: 3}
       propertyPath: m_Mass
       value: 0.5

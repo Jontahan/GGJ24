@@ -14,11 +14,15 @@ public class CarSoundManager : MonoBehaviour
     public AudioClip carHonkStart;
     public AudioClip carHonkLoop;
     public AudioClip[] carDrifting;
+    public AudioClip[] carCrashingSoft;
+    public AudioClip[] carCrashingHard;
+
 
     private AudioSource carGearShiftAudioSource;
     private AudioSource carEngineAudioSource;
     private AudioSource carDriftAudioSource;
     private AudioSource carHonkAudioSource;
+    private AudioSource carCrashAudioSource;
 
     private GameControls inputActions;
 
@@ -44,7 +48,33 @@ public class CarSoundManager : MonoBehaviour
         carGearShiftAudioSource = carAudioSources[1];
         carDriftAudioSource = carAudioSources[2];
         carHonkAudioSource = carAudioSources[3];
+        carCrashAudioSource = carAudioSources[4];
         engineStartupCoroutine = StartCoroutine(EngineStartup());
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == "Collidable")
+        {
+            // Hard crash sound
+            if (other.relativeVelocity.magnitude > 20f)
+            {
+                // get random crash sound and play it
+                var randomCrashSound = carCrashingHard[UnityEngine.Random.Range(0, carCrashingHard.Length)];
+                carCrashAudioSource.clip = randomCrashSound;
+                carCrashAudioSource.Play();
+            }
+
+            // Soft crash sound
+            else if (other.relativeVelocity.magnitude > 5f)
+            {
+                // get random crash sound and play it
+                var randomCrashSound = carCrashingSoft[UnityEngine.Random.Range(0, carCrashingSoft.Length)];
+                carCrashAudioSource.clip = randomCrashSound;
+                carCrashAudioSource.Play();
+            }
+        }
+
     }
 
     IEnumerator EngineStartup()
@@ -86,21 +116,6 @@ public class CarSoundManager : MonoBehaviour
             yield return new WaitForSeconds(carDriving.length);
         }
 
-    }
-
-    IEnumerator DriftCoroutine()
-    {
-        while (true)
-        {
-            // wait between 0.5 and 1.5 seconds
-            yield return new WaitForSeconds(UnityEngine.Random.Range(0.5f, 1.5f));
-            // get random drift sound and play it
-            var randomDriftSound = carDrifting[UnityEngine.Random.Range(0, carDrifting.Length)];
-            carDriftAudioSource.PlayOneShot(randomDriftSound);
-            // wait until drift sound is finished
-            yield return new WaitForSeconds(randomDriftSound.length);
-
-        }
     }
 
     void CalculateWheelSlip(WheelCollider wheelCollider)
