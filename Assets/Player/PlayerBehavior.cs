@@ -81,6 +81,5 @@ public class PlayerBehavior : MonoBehaviour
         float bobbing_pitch = Mathf.Sin(Time.time * 3.0f) * 3f * funLevel;
         float bobbing_yaw = Mathf.Sin(Time.time * 4.0f) * 3f * funLevel;
         Camera.main.transform.localRotation *= Quaternion.Euler(bobbing_pitch, bobbing_roll, bobbing_yaw);
-
     }
 }
