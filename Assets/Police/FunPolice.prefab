@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 7316492692384058642}
   m_Layer: 0
   m_Name: FunPolice
-  m_TagString: Collidable
+  m_TagString: Police
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -321,6 +321,7 @@ MonoBehaviour:
   damage: 34
   crashSounds:
   - {fileID: 0}
+  playerScreamSounds: []
 --- !u!1 &6615658687801124882
 GameObject:
   m_ObjectHideFlags: 0
