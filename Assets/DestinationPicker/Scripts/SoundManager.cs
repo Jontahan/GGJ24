@@ -61,7 +61,7 @@ public class CarSoundManager : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "Collidable")
+        if (other.gameObject.tag == "Collidable" || other.gameObject.tag == "Police")
         {
             // Hard crash sound
             if (other.relativeVelocity.magnitude > 20f)
