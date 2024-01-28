@@ -4,6 +4,8 @@ using TMPro;
 
 public class PlayerBehavior : MonoBehaviour
 {
+    [SerializeField] private FunnyJuice funnyJuice;
+    
     public float maxYawAngle = 90.0f;
     public float maxPitchAngle = 90.0f;
     public float mouseSensitivity = 1000.0f;
@@ -35,7 +37,10 @@ public class PlayerBehavior : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        drunkLevelText = GameObject.Find("DrunkLevelText").GetComponent<TextMeshProUGUI>();
+        // drunkLevelText = GameObject.Find("DrunkLevelText").GetComponent<TextMeshProUGUI>();
+        
+        if(funnyJuice != null)
+            funnyJuice.OnDrink += IncreaseDrunkLevel;
     }
 
     private Vector2 smoothInput;
@@ -48,8 +53,16 @@ public class PlayerBehavior : MonoBehaviour
         return smoothInput;
     }
 
+    private void IncreaseDrunkLevel()
+    {
+        if(drunkLevel < 3)
+            drunkLevel++;
+    }
+    
     void Update()
     {
+        Debug.Log(drunkLevel);
+        
         Vector2 rawInputHead = inputActions.Player.Head.ReadValue<Vector2>();
         Vector2 smoothInputHead = GetSmoothedInput(rawInputHead);
         float mouseX = smoothInputHead[0] * mouseSensitivity * Time.deltaTime;
@@ -70,19 +83,5 @@ public class PlayerBehavior : MonoBehaviour
         float bobbing_yaw = Mathf.Sin(Time.time * 4.0f) * 3f * drunkLevel;
         Camera.main.transform.localRotation *= Quaternion.Euler(bobbing_pitch, bobbing_roll, bobbing_yaw);
 
-
-        // DEBUG ONLY: Increase and decrease drunk level
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (drunkLevel < 3)
-                drunkLevel++;
-            drunkLevelText.text = "Level: " + drunkLevel.ToString();
-        }
-        else if (Input.GetMouseButtonDown(1))
-        {
-            if (drunkLevel > 0)
-                drunkLevel--;
-            drunkLevelText.text = "Level: " + drunkLevel.ToString();
-        }
     }
 }
