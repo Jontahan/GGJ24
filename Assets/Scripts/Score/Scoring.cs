@@ -40,7 +40,6 @@ public class Scoring : MonoBehaviour
         if (!calculatedScore)
         {
             index = 0;
-            Debug.Log($"scoreManager.scores.Count {scoreManager.scores.Count}, scoreManager.scoreModifiers.Count {scoreManager.scoreModifiers.Count}");
             if (scoreManager.scores.Count > 0)
             {
                 Label scoreLabel = new("Scores:");

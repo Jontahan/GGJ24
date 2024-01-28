@@ -1,9 +1,9 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement name="root" style="flex-grow: 1; flex-direction: column; align-self: flex-end; width: 20%;">
-        <ui:VisualElement name="Titles" style="flex-direction: row; font-size: 25px; justify-content: space-between; color: rgb(255, 255, 255);">
+    <ui:VisualElement name="root" style="flex-grow: 1; flex-direction: column; align-self: flex-end; width: 30%;">
+        <ui:VisualElement name="Titles" style="flex-direction: row; font-size: 30px; justify-content: space-between; color: rgb(255, 255, 255);">
             <ui:Label tabindex="-1" text="Your score:" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ScoringTitle" style="align-self: flex-start; align-items: flex-start;" />
             <ui:Label tabindex="-1" text="Total score" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TotalScore" style="-unity-text-align: upper-right; align-self: flex-end; align-items: flex-end;" />
         </ui:VisualElement>
-        <ui:GroupBox name="ScorePopUp" style="align-self: flex-start; align-items: flex-start; font-size: 20px; -unity-text-align: upper-left; color: rgb(255, 255, 255);" />
+        <ui:GroupBox name="ScorePopUp" style="align-self: flex-start; align-items: flex-start; font-size: 25px; -unity-text-align: upper-left; color: rgb(255, 255, 255);" />
     </ui:VisualElement>
 </ui:UXML>

@@ -35,7 +35,7 @@ public class PlayerBehavior : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        drunkLevelText = GameObject.Find("DrunkLevelText").GetComponent<TextMeshProUGUI>();
+        //drunkLevelText = GameObject.Find("DrunkLevelText").GetComponent<TextMeshProUGUI>();
     }
 
     private Vector2 smoothInput;
@@ -70,19 +70,20 @@ public class PlayerBehavior : MonoBehaviour
         float bobbing_yaw = Mathf.Sin(Time.time * 4.0f) * 3f * drunkLevel;
         Camera.main.transform.localRotation *= Quaternion.Euler(bobbing_pitch, bobbing_roll, bobbing_yaw);
 
-
+#if UNITY_EDITOR
         // DEBUG ONLY: Increase and decrease drunk level
         if (Input.GetMouseButtonDown(0))
         {
             if (drunkLevel < 3)
                 drunkLevel++;
-            drunkLevelText.text = "Level: " + drunkLevel.ToString();
+            //drunkLevelText.text = "Level: " + drunkLevel.ToString();
         }
         else if (Input.GetMouseButtonDown(1))
         {
             if (drunkLevel > 0)
                 drunkLevel--;
-            drunkLevelText.text = "Level: " + drunkLevel.ToString();
+            //drunkLevelText.text = "Level: " + drunkLevel.ToString();
         }
+#endif
     }
 }

@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class SceneManaging : MonoBehaviour
 {
+    private void Awake()
+    {
+        Time.timeScale = 1;
+    }
+
     public void LoadSceneByIndex(int index)
     {
         UnPauseGame();
