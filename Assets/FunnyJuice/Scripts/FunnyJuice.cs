@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class FunnyJuice : MonoBehaviour
 {
+    public event Action OnDrink;
+    
     [SerializeField] private GameObject hoveredEffect;
     
     public void Highlight()
@@ -20,6 +23,6 @@ public class FunnyJuice : MonoBehaviour
 
     public void Drink()
     {
-        Debug.Log("Drinking funny juice");
+        OnDrink?.Invoke();
     }
 }
