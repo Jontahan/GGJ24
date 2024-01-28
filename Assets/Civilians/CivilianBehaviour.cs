@@ -50,7 +50,7 @@ public class CivilianBehaviour : MonoBehaviour
     void Update()
     {
         // if destination is reached, generate a new one
-        if (agent.remainingDistance < 0.5f)
+        if (!ragdollRoot && agent.remainingDistance < 0.5f)
         {
             WalkToRandomDestination();
         }
@@ -84,7 +84,15 @@ public class CivilianBehaviour : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if(other.gameObject.CompareTag("Player") && !isRagdoll)
+        if(!isRagdoll)
+        {
+            SetRagdoll(true);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(!isRagdoll)
         {
             SetRagdoll(true);
         }
